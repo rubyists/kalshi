@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   # Uncomment to register a new dependency of your gem
   spec.add_dependency 'faye-websocket'
   spec.add_dependency 'httpx'
+  spec.add_dependency 'semantic_logger'
   spec.add_dependency 'trailblazer', '~> 2'
 
   # For more information and examples about making a new gem, check out our
