@@ -3,7 +3,7 @@
 require 'semantic_logger'
 require 'zeitwerk'
 require 'dry-configurable'
-require_relative 'domeapi/version'
+require_relative 'kalshi/version'
 
 module Rubyists
   # Kalshi module
