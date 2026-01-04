@@ -1,0 +1,32 @@
+# frozen_string_literal: true
+
+require_relative '../helper'
+
+describe Rubyists::Kalshi::Client do
+  let(:base_url) { Rubyists::Kalshi.config.base_url }
+
+  describe '#get' do
+    it 'raises Error on API error' do
+      stub_request(:get, "#{base_url}/error")
+        .to_return(status: 400, body: 'Bad Request')
+
+      client = Rubyists::Kalshi::Client.new
+      error = assert_raises(Rubyists::Kalshi::Error) do
+        client.get('error')
+      end
+      assert_match(/API Error: 400 - Bad Request/, error.message)
+    end
+  end
+end
+
+describe Rubyists::Kalshi do
+  describe '.client' do
+    it 'returns a client instance' do
+      assert_instance_of Rubyists::Kalshi::Client, Rubyists::Kalshi.client
+    end
+
+    it 'returns the same instance' do
+      assert_same Rubyists::Kalshi.client, Rubyists::Kalshi.client
+    end
+  end
+end

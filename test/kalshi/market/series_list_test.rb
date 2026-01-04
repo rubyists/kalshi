@@ -27,9 +27,15 @@ describe Rubyists::Kalshi::Market::SeriesList do
       assert_equal({ series: [] }, response)
     end
 
-    it 'raises ArgumentError for invalid filters' do
+    it 'raises ArgumentError for invalid keys' do
       assert_raises(ArgumentError) do
         series_list.list(invalid_param: 'value')
+      end
+    end
+
+    it 'raises ArgumentError for invalid values' do
+      assert_raises(ArgumentError) do
+        series_list.list(status: 123)
       end
     end
 
