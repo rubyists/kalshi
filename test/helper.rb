@@ -29,6 +29,7 @@ WebMock::HttpLibAdapters::HttpxAdapter.enable!
 WebMock.disable_net_connect!(allow_localhost: true)
 
 module Minitest
+  # Base class for all tests
   class Spec
     before do
       Rubyists::Kalshi.configure do |config|
