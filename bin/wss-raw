@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require 'faye/websocket'
+require 'eventmachine'
+require 'openssl'
+require 'base64'
+require 'json'
+
+# 1. Configuration
+HOST = 'api.elections.kalshi.com' # Use 'demo-api.kalshi.co' for demo
+PATH_WS = '/trade-api/ws/v2'
+URL = "wss://#{HOST}#{PATH_WS}".freeze
+PASS_PATH = ENV.fetch('KALSHI_PASS_PATH', 'kalshi/api/initial-dev-ro') # Path in `pass` where the PEM is stored
+API_KEY = `pass #{PASS_PATH} | head -n 1`.strip # First line of the pass entry is the API key
+
+abort('Error: Please set the KALSHI_API_KEY environment variable.') if API_KEY.nil? || API_KEY.empty?
+
+# 2. Load Private Key
+# Get the PEM content from `pass`, skipping the first two lines (API key and blank line)
+pem_content = `pass #{PASS_PATH} | tail -n +3`.strip
+
+begin
+  # Initialize the RSA key from the PEM content
+  private_key = OpenSSL::PKey::RSA.new(pem_content)
+rescue OpenSSL::PKey::RSAError => e
+  abort("Error loading private key: #{e.message}")
+end
+
+# 3. Generate Timestamp & Signature
+# Timestamp in milliseconds
+timestamp = (Time.now.to_f * 1000).to_i.to_s
+
+# Construct the message: timestamp + method + path
+message = "#{timestamp}GET#{PATH_WS}"
+
+# Sign using RSA-PSS
+# Kalshi requires: SHA256, PSS padding, and salt length equal to digest length (32 bytes).
+# In Ruby's OpenSSL, `salt_length: :digest` automatically sets salt length to 32 for SHA256.
+signature_raw = private_key.sign_pss('SHA256', message, salt_length: :digest, mgf1_hash: 'SHA256')
+
+# Base64 encode the binary signature
+signature = Base64.strict_encode64(signature_raw)
+
+# 4. Connect
+EM.run do
+  headers = {
+    'KALSHI-ACCESS-KEY' => API_KEY,
+    'KALSHI-ACCESS-SIGNATURE' => signature,
+    'KALSHI-ACCESS-TIMESTAMP' => timestamp
+  }
+
+  puts "Connecting to #{URL}..."
+
+  ws = Faye::WebSocket::Client.new(URL, [], headers: headers)
+
+  ws.on :open do |_event|
+    puts '[:open] Connected!'
+
+    # Example: Subscribe to ticker (optional)
+    ws.send({ id: 1, cmd: 'subscribe', params: { channels: ['ticker'] } }.to_json)
+  end
+
+  ws.on :message do |event|
+    puts "[:message] #{event.data}"
+  end
+
+  ws.on :close do |event|
+    puts "[:close] Code: #{event.code}, Reason: #{event.reason}"
+    ws = nil
+    EM.stop
+  end
+
+  ws.on :error do |event|
+    puts "[:error] #{event.inspect}"
+  end
+end

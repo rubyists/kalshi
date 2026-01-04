@@ -1,0 +1,17 @@
+---
+name: Validations
+
+on:  # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  workflow_call:
+  pull_request:
+
+jobs:
+  validate_ruby:
+    name: Ruby Tests
+    uses: ./.github/workflows/main.yaml
+
+  ensure_coverage:
+    needs: validate_ruby
+    name: Check SimpleCov coverage
+    uses: ./.github/workflows/coverage.yaml
