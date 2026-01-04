@@ -2,6 +2,11 @@
 
 # frozen_string_literal: true
 
+# Simple Kalshi WebSocket client with RSA-PSS authentication in Ruby.
+# This script connects to Kalshi's WebSocket API using RSA-PSS signatures for authentication.
+# It retrieves the API key and PEM private key from `pass` password manager.
+# On successful connection, it subscribes to the 'ticker' channel and prints all incoming messages.
+
 require 'faye/websocket'
 require 'eventmachine'
 require 'openssl'
