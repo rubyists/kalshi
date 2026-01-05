@@ -2,9 +2,9 @@
 
 module Rubyists
   module Kalshi
-    module Market
+    module Series
       # Candlesticks API endpoint
-      class Candlesticks < Kalshi::Endpoint
+      class MarketCandlesticks < Kalshi::Endpoint
         def fetch(series_ticker:, ticker:, start_ts:, end_ts:, period_interval:)
           path = "series/#{series_ticker}/markets/#{ticker}/candlesticks"
           params = { start_ts:, end_ts:, period_interval: }

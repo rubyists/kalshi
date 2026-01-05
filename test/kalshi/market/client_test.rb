@@ -58,7 +58,7 @@ describe Rubyists::Kalshi::Market::Client do
 
   describe '#candlesticks' do
     it 'returns a Candlesticks instance' do
-      assert_instance_of Rubyists::Kalshi::Market::Candlesticks, market_client.candlesticks
+      assert_instance_of Rubyists::Kalshi::Series::MarketCandlesticks, market_client.candlesticks
     end
 
     it 'memoizes the instance' do

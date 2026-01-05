@@ -10,17 +10,6 @@ module Rubyists
 
       # Class methods for Listable
       module ClassMethods
-        attr_accessor :endpoint_path
-
-        # Set the endpoint path for the resource
-        #
-        # @param path [String] API endpoint path
-        #
-        # @return [String] endpoint path
-        def kalshi_path(path)
-          self.endpoint_path = path
-        end
-
         def list(...)
           new.list(...)
         end

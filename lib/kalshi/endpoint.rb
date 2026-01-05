@@ -6,6 +6,19 @@ module Rubyists
     class Endpoint
       attr_reader :client
 
+      class << self
+        attr_accessor :endpoint_path
+
+        # Set the endpoint path for the resource
+        #
+        # @param path [String] API endpoint path
+        #
+        # @return [String] endpoint path
+        def kalshi_path(path)
+          self.endpoint_path = path
+        end
+      end
+
       # Initialize the Endpoint
       #
       # @param client [Client] The Kalshi client

@@ -57,10 +57,20 @@ module Rubyists
         @search ||= Search::Client.new(clone)
       end
 
+      def events
+        @events ||= Events::Client.new(clone)
+      end
+
+      def series
+        @series ||= Series::Client.new(clone)
+      end
+
       private
 
       def full_url(path)
-        File.join(*[base_url, prefix, path].compact)
+        parts = [base_url, prefix, path].compact
+        parts.reject!(&:empty?)
+        File.join(*parts)
       end
 
       def handle_response(response)
