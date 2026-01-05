@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/rubyists/kalshi/compare/v0.0.3...v0.0.4) (2026-01-05)
+
+
+### Features
+
+* adds search endpoints ([#6](https://github.com/rubyists/kalshi/issues/6)) ([d29aa7d](https://github.com/rubyists/kalshi/commit/d29aa7d01d4ac83c5eec9303afb03fe1e47ec056))
+
 ## [0.0.3](https://github.com/rubyists/kalshi/compare/v0.0.2...v0.0.3) (2026-01-05)
 
 
