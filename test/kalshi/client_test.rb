@@ -25,6 +25,14 @@ describe Rubyists::Kalshi::Client do
       assert_instance_of Rubyists::Kalshi::Market::Client, client.market
     end
   end
+
+  describe '#search' do
+    it 'returns a Search::Client instance' do
+      client = Rubyists::Kalshi::Client.new
+
+      assert_instance_of Rubyists::Kalshi::Search::Client, client.search
+    end
+  end
 end
 
 describe Rubyists::Kalshi do
