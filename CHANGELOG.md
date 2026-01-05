@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.5](https://github.com/rubyists/kalshi/compare/v0.0.4...v0.0.5) (2026-01-05)
+
+
+### Bug Fixes
+
+* correct path to filter_by_sport, adds ApiClient helper ([#8](https://github.com/rubyists/kalshi/issues/8)) ([a608fbe](https://github.com/rubyists/kalshi/commit/a608fbe0e88ad2678dc3ba84ba8198121e1d29aa))
+* renamed #get_without_prefix to #get_url for clarity ([#11](https://github.com/rubyists/kalshi/issues/11)) ([a641a5f](https://github.com/rubyists/kalshi/commit/a641a5f187ba2d42d1e4637fe599e63ea34fd4d8))
+
 ## [0.0.4](https://github.com/rubyists/kalshi/compare/v0.0.3...v0.0.4) (2026-01-05)
 
 
