@@ -44,7 +44,7 @@ client = Rubyists::Kalshi.client
 
 === Market
 
-Access Market endpoints via the `market` namespace (to be implemented in client wrapper, currently direct usage).
+Access Market endpoints via the `market` namespace.
 
 ==== Series List
 
@@ -55,10 +55,10 @@ List series with optional filtering:
 [source,ruby]
 ----
 # List series with default filter
-series_list = Rubyists::Kalshi::Market::SeriesList.list
+series_list = client.market.series_list.list
 
 # List series with custom filter
-series_list = Rubyists::Kalshi::Market::SeriesList.list(category: 'Politics', status: 'active')
+series_list = client.market.series_list.list(category: 'Sports', tags: 'Football')
 ----
 
 ==== Series
@@ -69,7 +69,7 @@ Get a specific series by ticker:
 
 [source,ruby]
 ----
-series = Rubyists::Kalshi::Market::Series.new.fetch('KX-SERIES')
+series = client.market.series.fetch('KX-SERIES')
 ----
 
 === WebSocket Client

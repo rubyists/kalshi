@@ -17,6 +17,14 @@ describe Rubyists::Kalshi::Client do
       assert_match(/API Error: 400 - Bad Request/, error.message)
     end
   end
+
+  describe '#market' do
+    it 'returns a Market::Client instance' do
+      client = Rubyists::Kalshi::Client.new
+
+      assert_instance_of Rubyists::Kalshi::Market::Client, client.market
+    end
+  end
 end
 
 describe Rubyists::Kalshi do
