@@ -62,6 +62,14 @@ describe Rubyists::Kalshi::Client do
       assert_instance_of Rubyists::Kalshi::Search::Client, client.search
     end
   end
+
+  describe '#events' do
+    it 'returns an Events::Client instance' do
+      client = Rubyists::Kalshi::Client.new
+
+      assert_instance_of Rubyists::Kalshi::Events::Client, client.events
+    end
+  end
 end
 
 describe Rubyists::Kalshi do
