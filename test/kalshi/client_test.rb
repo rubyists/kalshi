@@ -18,6 +18,35 @@ describe Rubyists::Kalshi::Client do
     end
   end
 
+  describe '#get_url' do
+    it 'fetches from a full URL' do
+      url = 'https://example.com/api/resource'
+      stub_request(:get, url)
+        .to_return(status: 200, body: '{"data": "value"}', headers: { 'Content-Type' => 'application/json' })
+
+      client = Rubyists::Kalshi::Client.new
+      response = client.get_url(url)
+
+      assert_equal({ data: 'value' }, response)
+    end
+
+    it 'raises Error for invalid URL scheme' do
+      client = Rubyists::Kalshi::Client.new
+      error = assert_raises(Rubyists::Kalshi::Error) do
+        client.get_url('ftp://example.com')
+      end
+      assert_match(/Invalid URL/, error.message)
+    end
+
+    it 'raises Error for invalid URL format' do
+      client = Rubyists::Kalshi::Client.new
+      error = assert_raises(Rubyists::Kalshi::Error) do
+        client.get_url('not_a_url')
+      end
+      assert_match(/Invalid URL/, error.message)
+    end
+  end
+
   describe '#market' do
     it 'returns a Market::Client instance' do
       client = Rubyists::Kalshi::Client.new

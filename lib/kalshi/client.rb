@@ -2,6 +2,7 @@
 
 require 'httpx'
 require 'json'
+require 'uri'
 
 module Rubyists
   module Kalshi
@@ -19,13 +20,33 @@ module Rubyists
                      .with(origin: base_url)
       end
 
+      # Get response from a path, adding the base_url,
+      # and a prefix, if set on the client.
+      #
+      # see #full_path for details
+      #
+      # @param path [String] The URL path
+      #
+      # @return [Hash] The parsed JSON response
       def get(path, params: {})
-        get_without_prefix(full_url(path), params:)
+        get_url(full_url(path), params:)
       end
 
-      def get_without_prefix(path, params: {})
-        response = @http.get(path, params:)
+      # Get response from a URL
+      # Must pass a full URL, including scheme (http/https), host, etc.
+      #
+      # @param path [String] The full URL path
+      #
+      # @return [Hash] The parsed JSON response
+      def get_url(url, params: {})
+        uri = URI.parse(url)
+        raise ArgumentError, 'URL must be http or https' unless %w[http https].include?(uri.scheme)
+
+        response = @http.get(url, params:)
         handle_response(response)
+      rescue ArgumentError => e
+        logger.error('Invalid URL', url:, exception: e)
+        raise Error, "Invalid URL: #{e.message}"
       end
 
       def market
