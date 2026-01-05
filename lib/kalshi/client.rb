@@ -28,6 +28,10 @@ module Rubyists
         @market ||= Market::Client.new(clone)
       end
 
+      def search
+        @search ||= Search::Client.new(clone)
+      end
+
       private
 
       def full_url(path)

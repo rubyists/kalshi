@@ -156,6 +156,32 @@ candlesticks = client.market.candlesticks.batch(
 )
 ----
 
+=== Search
+
+Access Search endpoints via the `search` namespace.
+
+==== Tags by Category
+
+https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories[API Reference]
+
+Get tags organized by series categories:
+
+[source,ruby]
+----
+tags = client.search.tags_by_category
+----
+
+==== Filters by Sport
+
+https://docs.kalshi.com/api-reference/search/get-filters-for-sports[API Reference]
+
+Get filters organized by sport:
+
+[source,ruby]
+----
+filters = client.search.filters_by_sport
+----
+
 === WebSocket Client
 
 A raw WebSocket client is included in `bin/wss-raw` for testing connection and subscription.
