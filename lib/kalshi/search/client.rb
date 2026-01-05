@@ -9,7 +9,7 @@ module Rubyists
           SeriesTags.new(client).all
         end
 
-        def filters_by_sports
+        def filters_by_sport
           SportsFilters.new(client).all
         end
       end

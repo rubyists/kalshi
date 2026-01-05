@@ -6,7 +6,7 @@ module Rubyists
       # Sports Filters API endpoint
       class SportsFilters < Kalshi::Endpoint
         def all
-          client.get('search/filters_by_sports')
+          client.get('filters_by_sport')
         end
       end
     end
