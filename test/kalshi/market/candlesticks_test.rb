@@ -2,9 +2,9 @@
 
 require_relative '../../helper'
 
-describe Rubyists::Kalshi::Market::Candlesticks do
+describe Rubyists::Kalshi::Series::MarketCandlesticks do
   let(:client) { Rubyists::Kalshi::Client.new }
-  let(:candlesticks) { Rubyists::Kalshi::Market::Candlesticks.new(client) }
+  let(:candlesticks) { client.market.candlesticks }
   let(:base_url) { Rubyists::Kalshi.config.base_url }
 
   describe '#fetch' do

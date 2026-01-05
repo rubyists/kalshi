@@ -70,6 +70,14 @@ describe Rubyists::Kalshi::Client do
       assert_instance_of Rubyists::Kalshi::Events::Client, client.events
     end
   end
+
+  describe '#series' do
+    it 'returns a Series::Client instance' do
+      client = Rubyists::Kalshi::Client.new
+
+      assert_instance_of Rubyists::Kalshi::Series::Client, client.series
+    end
+  end
 end
 
 describe Rubyists::Kalshi do

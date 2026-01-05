@@ -20,6 +20,10 @@ module Rubyists
         def multivariate
           Multivariate.new(client)
         end
+
+        def candlesticks
+          Rubyists::Kalshi::Series::EventCandlesticks.new(client)
+        end
       end
     end
   end
