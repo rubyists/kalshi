@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.0](https://github.com/rubyists/kalshi/compare/v0.0.5...v0.1.0) (2026-01-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* corrects gemspec source code uri ([#15](https://github.com/rubyists/kalshi/issues/15))
+
+### Bug Fixes
+
+* corrects gemspec source code uri ([#15](https://github.com/rubyists/kalshi/issues/15)) ([2a69255](https://github.com/rubyists/kalshi/commit/2a69255fdca48bda599b19d5aa9649eca6effe34))
+
 ## [0.0.5](https://github.com/rubyists/kalshi/compare/v0.0.4...v0.0.5) (2026-01-05)
 
 
