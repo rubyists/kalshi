@@ -32,7 +32,7 @@ module Rubyists
         end
 
         def candlesticks
-          @candlesticks ||= Candlesticks.new(client)
+          @candlesticks ||= Rubyists::Kalshi::Series::MarketCandlesticks.new(client)
         end
       end
     end

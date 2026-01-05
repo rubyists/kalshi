@@ -61,6 +61,10 @@ module Rubyists
         @events ||= Events::Client.new(clone)
       end
 
+      def series
+        @series ||= Series::Client.new(clone)
+      end
+
       private
 
       def full_url(path)
