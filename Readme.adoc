@@ -1,5 +1,6 @@
 = Kalshi
 :toc: macro
+:icons: font
 
 Ruby client for the Kalshi API.
 
@@ -168,7 +169,7 @@ Get tags organized by series categories:
 
 [source,ruby]
 ----
-tags = client.search.tags_by_category
+tags = client.search.tags_by_categories
 ----
 
 ==== Filters by Sport
@@ -192,12 +193,32 @@ NOTE: If you aren't using `pass` yet, you should! It works on Windows, Android, 
 
 [source,bash]
 ----
+# Set up your pass entry at the default path
+printf '%s\n\n%s\n' "$API_KEY" "$PEM_PRIVATE_KEY" | pass insert -m kalshi/api/initial-dev-ro
+
 # Default pass path: kalshi/api/initial-dev-ro
 ./bin/wss-raw
+
+# Set up your pass entry at a custom path
+printf '%s\n\n%s\n' "$API_KEY" "$PEM_PRIVATE_KEY" | pass insert -m my/custom/path
 
 # Override pass path
 KALSHI_PASS_PATH=my/custom/path ./bin/wss-raw
 ----
+
+[IMPORTANT]
+.The "$PEM_PRIVATE_KEY" must include the BEGIN and END lines
+====
+For example:
+
+[source]
+----
+-----BEGIN RSA PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASC...
+-----END RSA PRIVATE KEY-----
+----
+====
+
 
 == Development
 
