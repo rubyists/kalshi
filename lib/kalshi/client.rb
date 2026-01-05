@@ -20,7 +20,11 @@ module Rubyists
       end
 
       def get(path, params: {})
-        response = @http.get(full_url(path), params:)
+        get_without_prefix(full_url(path), params:)
+      end
+
+      def get_without_prefix(path, params: {})
+        response = @http.get(path, params:)
         handle_response(response)
       end
 

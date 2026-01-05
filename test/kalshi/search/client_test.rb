@@ -18,12 +18,12 @@ describe Rubyists::Kalshi::Search::Client do
     end
   end
 
-  describe '#filters_by_sports' do
-    it 'fetches filters by sports' do
-      stub_request(:get, "#{base_url}/search/filters_by_sports")
+  describe '#filters_by_sport' do
+    it 'fetches filters by sport' do
+      stub_request(:get, "#{base_url}/search/filters_by_sport")
         .to_return(status: 200, body: '{"filters_by_sports": {}}', headers: { 'Content-Type' => 'application/json' })
 
-      response = search_client.filters_by_sports
+      response = search_client.filters_by_sport
 
       assert_equal({ filters_by_sports: {} }, response)
     end
