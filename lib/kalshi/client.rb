@@ -24,6 +24,10 @@ module Rubyists
         handle_response(response)
       end
 
+      def market
+        @market ||= Market::Client.new(clone)
+      end
+
       private
 
       def full_url(path)

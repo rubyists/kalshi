@@ -44,7 +44,7 @@ client = Rubyists::Kalshi.client
 
 === Market
 
-Access Market endpoints via the `market` namespace (to be implemented in client wrapper, currently direct usage).
+Access Market endpoints via the `market` namespace.
 
 ==== Series List
 
@@ -55,10 +55,10 @@ List series with optional filtering:
 [source,ruby]
 ----
 # List series with default filter
-series_list = Rubyists::Kalshi::Market::SeriesList.list
+series_list = client.market.series_list.list
 
 # List series with custom filter
-series_list = Rubyists::Kalshi::Market::SeriesList.list(category: 'Politics', status: 'active')
+series_list = client.market.series_list.list(category: 'Sports', tags: 'Football')
 ----
 
 ==== Series
@@ -69,7 +69,91 @@ Get a specific series by ticker:
 
 [source,ruby]
 ----
-series = Rubyists::Kalshi::Market::Series.new.fetch('KX-SERIES')
+series = client.market.series.fetch('KX-SERIES')
+----
+
+==== Markets
+
+https://docs.kalshi.com/api-reference/market/get-markets[API Reference]
+
+List markets with optional filtering:
+
+[source,ruby]
+----
+# List markets with default filter
+markets = client.market.markets.list
+
+# List markets with custom filter
+markets = client.market.markets.list(status: 'open', limit: 10)
+----
+
+Get a specific market by ticker:
+
+[source,ruby]
+----
+market = client.market.markets.fetch('KX-MARKET')
+----
+
+==== Orderbook
+
+https://docs.kalshi.com/api-reference/market/get-market-orderbook[API Reference]
+
+Get the orderbook for a market:
+
+[source,ruby]
+----
+# Get full orderbook
+orderbook = client.market.orderbook.fetch('KX-MARKET')
+
+# Get orderbook with specific depth
+orderbook = client.market.orderbook.fetch('KX-MARKET', depth: 10)
+----
+
+==== Trades
+
+https://docs.kalshi.com/api-reference/market/get-trades[API Reference]
+
+List trades with optional filtering:
+
+[source,ruby]
+----
+# List trades with default filter
+trades = client.market.trades.list
+
+# List trades with custom filter
+trades = client.market.trades.list(ticker: 'KX-MARKET', limit: 100)
+----
+
+==== Candlesticks
+
+https://docs.kalshi.com/api-reference/market/get-market-candlesticks[API Reference]
+
+Get candlesticks for a market:
+
+[source,ruby]
+----
+candlesticks = client.market.candlesticks.fetch(
+  series_ticker: 'KX-SERIES',
+  ticker: 'KX-MARKET',
+  start_ts: 1600000000,
+  end_ts: 1600000060,
+  period_interval: 1
+)
+----
+
+https://docs.kalshi.com/api-reference/market/batch-get-market-candlesticks[API Reference]
+
+Get candlesticks for multiple markets:
+
+[source,ruby]
+----
+candlesticks = client.market.candlesticks.batch(
+  tickers: ['KX-MARKET-1', 'KX-MARKET-2'],
+  series_ticker: 'KX-SERIES',
+  start_ts: 1600000000,
+  end_ts: 1600000060,
+  period_interval: 1
+)
 ----
 
 === WebSocket Client
